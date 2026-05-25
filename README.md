@@ -83,6 +83,30 @@ liveshctl status
 The daemon (`liveshd`) is spawned on demand by the client; you don't normally
 run it by hand.
 
+## Stripping env vars from the inner shell
+
+Hosts like cmux inject identifying env vars (`CMUX_*`, etc.) into every pane.
+Those vars are inherited by `livesh`, forwarded to `liveshd`, and would
+normally end up in the inner shell — where downstream tools (vault scanners,
+agent CLIs like `claude`) pick them up and bind the process to a session
+they shouldn't.
+
+Set `LIVESH_STRIP_PREFIX_ENV` (comma-separated prefixes) in the environment
+that `liveshd` is spawned from, and the daemon will drop matching keys from
+both the client-supplied env and its own inherited env before spawning the
+shell:
+
+```bash
+export LIVESH_STRIP_PREFIX_ENV=CMUX_
+# multiple prefixes:
+export LIVESH_STRIP_PREFIX_ENV=CMUX_,GHOSTTY_
+```
+
+Because `liveshd` is auto-spawned by `livesh`, exporting the var in your shell
+profile (or whatever sets up the cmux/Ghostty session) is enough — no flag
+needed on either binary. Already-running daemons need to be killed (`pkill
+liveshd`) so the next `livesh` invocation respawns one with the new env.
+
 ## Requirements
 
 - Rust 1.85+ (edition 2024)
