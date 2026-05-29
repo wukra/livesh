@@ -11,6 +11,7 @@ readme = "README.md"
 rust-version = "1.85"
 keywords = ["shell", "pty", "terminal", "session", "daemon"]
 categories = ["command-line-utilities", "development-tools"]
+exclude = ["cmux-livesh.md", "plan.md", "*.profraw"]
 
 [[bin]]
 name = "livesh"
