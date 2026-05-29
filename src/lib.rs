@@ -1,3 +1,14 @@
+pub mod protocol;
+
+pub mod config;
+pub mod gc;
+pub mod limits;
+pub mod metadata;
+pub mod paths;
+pub mod shell_cwd;
+pub mod shell_resolve;
+pub mod terminal_model;
+
 pub mod args;
 pub mod bridge;
 pub mod client;
@@ -20,11 +31,11 @@ pub const EXIT_TEMPORARY_FAILURE: i32 = 75;
 pub fn exit_code_for_error(err: &anyhow::Error) -> i32 {
     if let Some(server) = err.downcast_ref::<client::ServerError>() {
         return match server.code {
-            livesh_protocol::ErrorCode::Usage => EXIT_USAGE,
-            livesh_protocol::ErrorCode::NotFound => EXIT_NOT_FOUND,
-            livesh_protocol::ErrorCode::DaemonUnavailable => EXIT_DAEMON_UNAVAILABLE,
-            livesh_protocol::ErrorCode::RuntimeDir => EXIT_RUNTIME_DIR,
-            livesh_protocol::ErrorCode::TemporaryFailure => EXIT_TEMPORARY_FAILURE,
+            protocol::ErrorCode::Usage => EXIT_USAGE,
+            protocol::ErrorCode::NotFound => EXIT_NOT_FOUND,
+            protocol::ErrorCode::DaemonUnavailable => EXIT_DAEMON_UNAVAILABLE,
+            protocol::ErrorCode::RuntimeDir => EXIT_RUNTIME_DIR,
+            protocol::ErrorCode::TemporaryFailure => EXIT_TEMPORARY_FAILURE,
             _ => EXIT_INTERNAL,
         };
     }

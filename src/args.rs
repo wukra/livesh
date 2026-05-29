@@ -1,7 +1,7 @@
 use std::{ffi::OsString, path::PathBuf};
 
 use anyhow::{Context, bail};
-use livesh_protocol::ShellId;
+use crate::protocol::ShellId;
 
 #[derive(Debug, Clone)]
 pub enum LiveshMode {

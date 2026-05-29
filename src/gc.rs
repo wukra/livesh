@@ -11,7 +11,7 @@ pub fn startup_gc(paths: &RuntimePaths) -> anyhow::Result<()> {
     Ok(())
 }
 
-pub fn remove_shell_files(paths: &RuntimePaths, id: &livesh_protocol::ShellId) {
+pub fn remove_shell_files(paths: &RuntimePaths, id: &crate::protocol::ShellId) {
     let _ = fs::remove_file(paths.metadata(id));
     let _ = fs::remove_file(paths.snapshot(id));
     let _ = fs::remove_file(paths.scrollback(id));

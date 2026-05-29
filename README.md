@@ -34,15 +34,16 @@ The wire contract (`--state-json-fd` for deterministic id capture, exit code
 orphan discovery) is shaped specifically so cmux — or any pane-managing host —
 can persist `liveShellId` in its layout and replay it on restore.
 
-## Workspace
+## Install
 
-| Crate | Purpose |
-|-------|---------|
-| `livesh-protocol` | Wire types shared between client and daemon |
-| `livesh-core`     | Session metadata, paths, GC, terminal model, limits |
-| `livesh-cli`      | The `livesh`, `liveshd`, and `liveshctl` binaries |
+```bash
+cargo install livesh
+```
 
-## Build
+This installs three binaries: `livesh` (client), `liveshd` (the session-owning
+daemon, spawned on demand), and `liveshctl` (session management).
+
+## Build from source
 
 ```bash
 cargo build --release

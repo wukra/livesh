@@ -1,23 +1,30 @@
-[workspace]
-members = [
-    "crates/livesh-protocol",
-    "crates/livesh-core",
-    "crates/livesh-cli",
-]
-resolver = "2"
-
-[workspace.package]
+[package]
+name = "livesh"
+description = "A persistent live shell: run your shell in a daemon-owned PTY, detach and reattach by id. Provides the livesh, liveshd, and liveshctl binaries."
+version = "0.1.0"
 edition = "2024"
 license = "MIT"
-version = "0.1.0"
 authors = ["Johnny Wang"]
 repository = "https://github.com/xiaocang/livesh"
 homepage = "https://github.com/xiaocang/livesh"
+readme = "README.md"
 rust-version = "1.85"
 keywords = ["shell", "pty", "terminal", "session", "daemon"]
 categories = ["command-line-utilities", "development-tools"]
 
-[workspace.dependencies]
+[[bin]]
+name = "livesh"
+path = "src/bin/livesh.rs"
+
+[[bin]]
+name = "liveshd"
+path = "src/bin/liveshd.rs"
+
+[[bin]]
+name = "liveshctl"
+path = "src/bin/liveshctl.rs"
+
+[dependencies]
 anyhow = "1"
 bincode = "1"
 nix = { version = "0.29", features = ["fs", "process", "signal", "term", "user"] }

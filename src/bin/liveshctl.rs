@@ -1,11 +1,11 @@
 use std::env;
 
-use livesh_cli::{
+use livesh::{
     args::{LiveshctlMode, liveshctl_help, parse_liveshctl},
     client::Client,
     exit_code_for_error,
 };
-use livesh_protocol::{ClientKind, ClientMsg, ShellInfo, ShellStatus};
+use livesh::protocol::{ClientKind, ClientMsg, ShellInfo, ShellStatus};
 
 #[tokio::main]
 async fn main() {

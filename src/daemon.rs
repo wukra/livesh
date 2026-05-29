@@ -15,7 +15,7 @@ use std::{
 };
 
 use anyhow::{Context, bail};
-use livesh_core::{
+use crate::{
     config::Config,
     gc,
     limits::{BoundedBytes, EventRing},
@@ -24,7 +24,7 @@ use livesh_core::{
     shell_cwd,
     terminal_model::TerminalModel,
 };
-use livesh_protocol::{
+use crate::protocol::{
     AttachId, ClientHello, ClientMsg, ErrorCode, PROTOCOL_VERSION, ServerHello, ServerMsg, ShellId,
     ShellInfo, ShellStatus,
 };

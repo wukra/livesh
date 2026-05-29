@@ -4,7 +4,7 @@ use std::{
     os::{fd::FromRawFd, unix::io::RawFd},
 };
 
-use livesh_protocol::ShellId;
+use crate::protocol::ShellId;
 use serde::Serialize;
 
 #[derive(Debug, Serialize)]

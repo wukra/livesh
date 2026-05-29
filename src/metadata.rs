@@ -6,7 +6,7 @@ use std::{
 };
 
 use anyhow::Context;
-use livesh_protocol::{ShellId, ShellStatus};
+use crate::protocol::{ShellId, ShellStatus};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

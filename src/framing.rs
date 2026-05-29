@@ -1,5 +1,5 @@
 use anyhow::{Context, bail};
-use livesh_protocol::{MAX_FRAME_LEN, decode_payload, encode_frame};
+use crate::protocol::{MAX_FRAME_LEN, decode_payload, encode_frame};
 use serde::{Serialize, de::DeserializeOwned};
 use tokio::io::{AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt};
 

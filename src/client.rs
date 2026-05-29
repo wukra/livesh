@@ -1,8 +1,8 @@
 use std::{path::PathBuf, sync::Arc};
 
 use anyhow::{Context, bail};
-use livesh_core::paths::RuntimePaths;
-use livesh_protocol::{
+use crate::paths::RuntimePaths;
+use crate::protocol::{
     AttachId, ClientHello, ClientKind, ClientMsg, ErrorCode, PROTOCOL_VERSION, ServerHello,
     ServerMsg, ShellId, ShellInfo, ShellStatus,
 };

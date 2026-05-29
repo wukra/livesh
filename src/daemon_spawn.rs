@@ -6,8 +6,8 @@ use std::{
 };
 
 use anyhow::{Context, bail};
-use livesh_core::paths::{RuntimePaths, ensure_runtime_dirs};
-use livesh_protocol::ClientKind;
+use crate::paths::{RuntimePaths, ensure_runtime_dirs};
+use crate::protocol::ClientKind;
 use nix::{fcntl, unistd};
 use tokio::time::sleep;
 

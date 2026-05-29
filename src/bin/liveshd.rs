@@ -14,8 +14,8 @@ async fn main() {
         })
         .unwrap_or_default();
 
-    if let Err(err) = livesh_cli::daemon::run(strip_prefix_env).await {
+    if let Err(err) = livesh::daemon::run(strip_prefix_env).await {
         eprintln!("liveshd: {err:#}");
-        std::process::exit(livesh_cli::exit_code_for_error(&err));
+        std::process::exit(livesh::exit_code_for_error(&err));
     }
 }

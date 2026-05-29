@@ -5,7 +5,7 @@ use std::{
 };
 
 use anyhow::{Context, bail};
-use livesh_protocol::ShellId;
+use crate::protocol::ShellId;
 use nix::unistd::Uid;
 
 #[derive(Debug, Clone)]

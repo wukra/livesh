@@ -7,14 +7,14 @@ use std::{
 };
 
 use anyhow::Context;
-use livesh_cli::{
+use livesh::{
     args::{LiveshMode, livesh_help, parse_livesh},
     bridge,
     client::{Client, CreatedShell, ServerError},
     exit_code_for_error, state_json, tty,
 };
-use livesh_core::shell_resolve;
-use livesh_protocol::{ClientKind, ClientMsg, ErrorCode, ShellId};
+use livesh::shell_resolve;
+use livesh::protocol::{ClientKind, ClientMsg, ErrorCode, ShellId};
 
 const FD_LIMIT_TIERS_MS: &[u64] = &[
     3 * 24 * 60 * 60 * 1000, // 3 days
@@ -100,7 +100,7 @@ async fn run_managed_shell(
         Err(err) => return fail_or_fallback(allow_fallback, err, "daemon unavailable"),
     };
     let _ = client.expect_ok(ClientMsg::RunGc).await;
-    let config = livesh_core::config::Config::load()?;
+    let config = livesh::config::Config::load()?;
     let shell_path = shell_resolve::resolve_real_shell_with_config(Some(&config.real_shell))?;
     let cwd = match cwd {
         Some(path) => path,

@@ -211,45 +211,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "68ab91017fe16c622486840e4c83c9a37afeff978bd239b5293d61ece587de66"
 
 [[package]]
-name = "livesh-cli"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "livesh-core",
- "livesh-protocol",
- "nix 0.29.0",
- "parking_lot",
- "portable-pty",
- "serde",
- "serde_json",
- "tokio",
- "tracing",
- "tracing-subscriber",
- "uuid",
-]
-
-[[package]]
-name = "livesh-core"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "livesh-protocol",
- "nix 0.29.0",
- "parking_lot",
- "portable-pty",
- "serde",
- "serde_json",
- "uuid",
-]
-
-[[package]]
-name = "livesh-protocol"
+name = "livesh"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "bincode",
+ "nix 0.29.0",
+ "parking_lot",
+ "portable-pty",
  "serde",
+ "serde_json",
  "thiserror 2.0.18",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
 ]
 
 [[package]]

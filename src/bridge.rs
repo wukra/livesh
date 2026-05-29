@@ -1,7 +1,7 @@
 use std::{io::Write, time::Duration};
 
-use livesh_core::shell_resolve;
-use livesh_protocol::{AttachId, ClientKind, ClientMsg, ErrorCode, ServerMsg, ShellId};
+use crate::shell_resolve;
+use crate::protocol::{AttachId, ClientKind, ClientMsg, ErrorCode, ServerMsg, ShellId};
 use tokio::{
     io::{AsyncReadExt, stdin},
     signal::unix::{SignalKind, signal},
