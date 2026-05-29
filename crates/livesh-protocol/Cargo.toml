@@ -1,8 +1,16 @@
 [package]
 name = "livesh-protocol"
+description = "Wire protocol types shared between the livesh client and daemon."
 edition.workspace = true
 license.workspace = true
 version.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+readme.workspace = true
+rust-version.workspace = true
+keywords.workspace = true
+categories.workspace = true
 
 [dependencies]
 anyhow.workspace = true

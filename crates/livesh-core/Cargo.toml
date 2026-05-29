@@ -1,12 +1,20 @@
 [package]
 name = "livesh-core"
+description = "Core session model, PTY/terminal state, paths, GC and size limits for livesh."
 edition.workspace = true
 license.workspace = true
 version.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+readme.workspace = true
+rust-version.workspace = true
+keywords.workspace = true
+categories.workspace = true
 
 [dependencies]
 anyhow.workspace = true
-livesh-protocol = { path = "../livesh-protocol" }
+livesh-protocol = { path = "../livesh-protocol", version = "0.1.0" }
 nix.workspace = true
 parking_lot.workspace = true
 portable-pty.workspace = true
