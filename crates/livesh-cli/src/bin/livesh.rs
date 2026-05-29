@@ -14,7 +14,7 @@ use livesh_cli::{
     exit_code_for_error, state_json, tty,
 };
 use livesh_core::shell_resolve;
-use livesh_protocol::{ClientKind, ClientMsg, ErrorCode};
+use livesh_protocol::{ClientKind, ClientMsg, ErrorCode, ShellId};
 
 const FD_LIMIT_TIERS_MS: &[u64] = &[
     3 * 24 * 60 * 60 * 1000, // 3 days
@@ -46,10 +46,7 @@ async fn run() -> anyhow::Result<i32> {
             Ok(0)
         }
         LiveshMode::Real => shell_resolve::exec_real_shell().map(|()| 0),
-        LiveshMode::Open { id } => {
-            let client = Client::connect_or_spawn(ClientKind::Livesh).await?;
-            bridge::open_and_bridge(client, id).await
-        }
+        LiveshMode::Open { id } => open_or_recreate(id).await,
         LiveshMode::New {
             name,
             state_json_fd,
@@ -57,6 +54,34 @@ async fn run() -> anyhow::Result<i32> {
         } => run_managed_shell(name, state_json_fd, cwd, true).await,
         LiveshMode::Upgrade { name, cwd } => run_managed_shell(name, None, cwd, false).await,
     }
+}
+
+/// Open an existing shell by id. If the daemon no longer knows about it — e.g.
+/// the previous `liveshd` died on reboot or was `kill -9`'d and a fresh daemon
+/// took its place — warn and start a new managed shell instead of failing with
+/// NotFound. This keeps `livesh --open <id>` (cmux's resume command) usable
+/// across reboots: the user lands in a working shell rather than an error.
+async fn open_or_recreate(id: ShellId) -> anyhow::Result<i32> {
+    let client = Client::connect_or_spawn(ClientKind::Livesh).await?;
+    let size = tty::current_size();
+    match client.open_shell(id.clone(), size.cols, size.rows, true).await {
+        Ok(snapshot) => {
+            bridge::bridge_snapshot(client, id, snapshot.attach_id, snapshot.screen_bytes).await
+        }
+        Err(err) if is_not_found(&err) => {
+            eprintln!(
+                "livesh: session {id} is gone (liveshd restarted?); starting a fresh shell"
+            );
+            drop(client);
+            run_managed_shell(None, None, None, true).await
+        }
+        Err(err) => Err(err),
+    }
+}
+
+fn is_not_found(err: &anyhow::Error) -> bool {
+    err.downcast_ref::<ServerError>()
+        .is_some_and(|e| e.code == ErrorCode::NotFound)
 }
 
 async fn run_managed_shell(

@@ -23,6 +23,9 @@ livesh fills that gap. The daemon owns the PTY out-of-process, so:
 - **Quit cmux** → every shell stays alive.
 - **Relaunch cmux** → `livesh --open sh_<uuid>` reattaches the original PTY,
   vim buffer / REPL / running command intact.
+- **Reboot / `liveshd` killed** → the old shell state is gone, but
+  `livesh --open sh_<uuid>` no longer errors out: it prints a warning and
+  starts a fresh shell in its place, so the pane stays usable.
 - **Explicit kill** → `liveshctl kill <id>` terminates the shell and cleans
   state; "close pane" and "kill terminal" become distinct actions.
 
